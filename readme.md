@@ -11,16 +11,16 @@ useful for any cross-platform app.
 The library is made up of the following
 modules:
 
-module   | — |functionality
----------|:-:|:-------------
-`audio`  |   | audio loading and playback
-`crypt`  |   | cryptographic functions
-`cursor` |   | setting the mouse cursor
-`draw`   |   | basic 2D drawing
-`file`   |   | using files
-`img`    |   | loading image files
-`now`    |   | high-resolution timestamps
-`winutil`|   | posix-like functions on windows
-`xy`     |   | working with points and rectangles
+module   |functionality
+---------|0-------------
+`audio`  | audio loading and playback
+`crypt`  | cryptographic functions
+`cursor` | setting the mouse cursor
+`draw`   | basic 2D drawing
+`file`   | using files
+`img`    | loading image files
+`now`    | high-resolution timestamps
+`winutil`| posix-like functions on windows
+`xy`     | working with points and rectangles
 
 
