@@ -12,7 +12,7 @@ The library is made up of the following
 modules:
 
 module   |functionality
----------|0-------------
+---------|--------------
 `audio`  | audio loading and playback
 `crypt`  | cryptographic functions
 `cursor` | setting the mouse cursor
