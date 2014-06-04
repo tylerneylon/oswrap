@@ -53,15 +53,15 @@ extern "C" draw__Bitmap img__new_bitmap(const char *path, int *w, int *h) {
   bitmap_data.Width = *w;
   bitmap_data.Height = *h;
   // A negative stride effectively reverses the image's y-direction.
-  bitmap_data.Stride = *w * -3;
+  bitmap_data.Stride = *w * -4;
   // Since Stride < 0, we want Scan0 to point to the last row in data.
-  bitmap_data.Scan0 = draw_bitmap->bytes + (*h - 1) * (*w * 3);
-  bitmap_data.PixelFormat = PixelFormat24bppRGB;
+  bitmap_data.Scan0 = draw_bitmap->bytes + (*h - 1) * (*w * 4);
+  bitmap_data.PixelFormat = PixelFormat32bppPARGB;
 
   Status status = gdi_bitmap->LockBits(
     &full_rect,
     ImageLockModeRead | ImageLockModeUserInputBuf,
-    PixelFormat24bppRGB,
+    PixelFormat32bppPARGB,
     &bitmap_data);
 
   if (status != Ok) {

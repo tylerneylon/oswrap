@@ -37,7 +37,7 @@ typedef HBITMAP     *draw__Bitmap;
 typedef HFONT        draw__Font;
 typedef COLORREF     draw__Color;
 
-#define draw__gl_format GL_BGR
+#define draw__gl_format GL_BGRA
 
 #endif
 
@@ -46,7 +46,8 @@ typedef COLORREF     draw__Color;
 draw__Bitmap draw__new_bitmap     (int w, int h);
 void         draw__delete_bitmap  (draw__Bitmap bitmap);
 void         draw__set_bitmap     (draw__Bitmap bitmap);
-// Do not directly free the returned memory; it is owned by the draw__Bitmap object.
+// TODO draw__get_bitmap_data would make sense returning char * on
+//      windows. Would that also make sense on mac?
 void *       draw__get_bitmap_data(draw__Bitmap bitmap);
 
 // Fonts and text.

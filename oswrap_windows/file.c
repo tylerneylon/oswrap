@@ -9,7 +9,6 @@
 
 #include "cbit.h"
 
-
 #define path_len 1024
 
 
@@ -44,6 +43,16 @@ char *file__get_path(const char *filename) {
   snprintf(path, path_len, "%s\\%s", homedir, filename);
 
   return path;
+}
+
+char *file__save_dir() {
+  return homedir;
+}
+
+char *file__account_path() {
+  static char account_path[path_len];
+  snprintf(account_path, path_len, "%s\account", homedir);
+  return account_path;
 }
 
 int file__make_dir_if_needed(const char *dir_) {
@@ -91,7 +100,13 @@ int file__exists(const char *path) {
 
 char *file__contents(const char *path, size_t *size) {
   FILE *f;
-  fopen_s(&f, path, "rb");
+  errno_t err = fopen_s(&f, path, "rb");
+  if (err) {
+    char msg[128];
+    sprintf_s(msg, 128, "Error: fopen_s failed with errno=%d in call to %s.\n", err, __FUNCTION__);
+    OutputDebugString(msg);
+    return NULL;
+  }
   fseek(f, 0, SEEK_END);
   *size = ftell(f);
   fseek(f, 0, SEEK_SET);

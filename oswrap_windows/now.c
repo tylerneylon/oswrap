@@ -11,8 +11,9 @@
 #endif
 #endif
 
-#include "cbit.h"
-
+#define bit   char
+#define true  1
+#define false 0
 
 
 double now() {

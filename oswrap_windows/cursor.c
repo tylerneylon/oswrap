@@ -2,8 +2,9 @@
 
 #include <windows.h>
 
-#include "cbit.h"
-
+#define bit   char
+#define true  1
+#define false 0
 
 static HCURSOR cursors[3] = { NULL, NULL, NULL };
 

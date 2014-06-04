@@ -71,7 +71,7 @@ draw__Bitmap draw__new_bitmap(int w, int h) {
   bitmap_header.biWidth       = w;
   bitmap_header.biHeight      = h;
   bitmap_header.biPlanes      = 1;
-  bitmap_header.biBitCount    = 24;
+  bitmap_header.biBitCount    = 32;
   bitmap_header.biCompression = BI_RGB;
 
   b->bitmap = CreateDIBSection(
@@ -146,6 +146,7 @@ draw__Font draw__new_font(const char *name, int size) {
     // Keep a handle to the system font so we may
     // later deselect a font from an hdc.
     system_font = SelectObject(active_hdc, font);
+    // TODO Verify this isn't NULL.
   }
 
   return font;
