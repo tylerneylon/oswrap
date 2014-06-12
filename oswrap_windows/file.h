@@ -13,10 +13,6 @@
 // Returns the full path of packaged file.
 char *file__get_path(const char *filename);
 
-char *file__save_dir();
-
-char *file__account_path();
-
 // Returns nonzero on success.
 int   file__make_dir_if_needed(const char *dir);
 

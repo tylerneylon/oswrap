@@ -45,16 +45,6 @@ char *file__get_path(const char *filename) {
   return path;
 }
 
-char *file__save_dir() {
-  return homedir;
-}
-
-char *file__account_path() {
-  static char account_path[path_len];
-  snprintf(account_path, path_len, "%s\account", homedir);
-  return account_path;
-}
-
 int file__make_dir_if_needed(const char *dir_) {
 
   char drive[path_len];

@@ -1,5 +1,7 @@
 #include "now.h"
 
+#include "cbit.h"
+
 #ifdef _WIN32
 #include <windows.h>
 #else
@@ -10,10 +12,6 @@
 #include <time.h>
 #endif
 #endif
-
-#define bit   char
-#define true  1
-#define false 0
 
 
 double now() {

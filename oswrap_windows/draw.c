@@ -146,7 +146,6 @@ draw__Font draw__new_font(const char *name, int size) {
     // Keep a handle to the system font so we may
     // later deselect a font from an hdc.
     system_font = SelectObject(active_hdc, font);
-    // TODO Verify this isn't NULL.
   }
 
   return font;
