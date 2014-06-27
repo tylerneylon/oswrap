@@ -1,5 +1,7 @@
 // audio.h
 //
+// Home repo: https://github.com/tylerneylon/oswrap in oswrap_mac
+//
 // Functions for playing audio files such as mp3's.
 //
 // On windows, using these functions requires linking with

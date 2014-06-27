@@ -1,3 +1,8 @@
+// audio.m
+//
+// Home repo: https://github.com/tylerneylon/oswrap in oswrap_mac
+//
+
 #include "audio.h"
 
 #define fade_delta_timestep 0.3

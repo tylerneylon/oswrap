@@ -1,3 +1,8 @@
+// xy.c
+//
+// Home repo: https://github.com/tylerneylon/oswrap in oswrap_mac
+//
+
 #include "xy.h"
 
 xy__Float xy__width(xy__Rect rect) {

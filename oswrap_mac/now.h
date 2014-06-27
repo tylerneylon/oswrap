@@ -1,5 +1,7 @@
 // now.h
 //
+// Home repo: https://github.com/tylerneylon/oswrap in oswrap_mac
+//
 // A cross-platform way to get a high-resolution
 // timestamp.
 //

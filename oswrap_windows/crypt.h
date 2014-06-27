@@ -1,5 +1,7 @@
 // crypt.h
 //
+// Home repo: https://github.com/tylerneylon/oswrap in oswrap_windows
+//
 // Cross-platform wrappers for security-related functions 
 // such as SHA1.
 //

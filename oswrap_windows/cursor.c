@@ -1,3 +1,8 @@
+// cursor.c
+//
+// Home repo: https://github.com/tylerneylon/oswrap in oswrap_windows
+//
+
 #include "cursor.h"
 
 #include "cbit.h"

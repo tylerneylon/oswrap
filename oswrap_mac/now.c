@@ -1,3 +1,8 @@
+// now.c
+//
+// Home repo: https://github.com/tylerneylon/oswrap in oswrap_mac
+//
+
 #include "now.h"
 
 #ifdef __APPLE__

@@ -1,3 +1,8 @@
+// crypt.c
+//
+// Home repo: https://github.com/tylerneylon/oswrap in oswrap_mac
+//
+
 #include "crypt.h"
 
 #include <CommonCrypto/CommonDigest.h>

@@ -1,3 +1,8 @@
+// img.cpp
+//
+// Home repo: https://github.com/tylerneylon/oswrap in oswrap_windows
+//
+
 extern "C" {
 #include "img.h"
 #include "winutil.h"

@@ -1,5 +1,7 @@
 // img.h
 //
+// Home repo: https://github.com/tylerneylon/oswrap in oswrap_mac
+//
 // Functions for loading image files into bitmaps.
 //
 // On windows, using these functions requires linking with

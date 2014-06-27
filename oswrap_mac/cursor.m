@@ -1,3 +1,8 @@
+// cursor.m
+//
+// Home repo: https://github.com/tylerneylon/oswrap in oswrap_mac
+//
+
 #include "cursor.h"
 
 NSCursor *cursors[3] = {nil, nil, nil};
