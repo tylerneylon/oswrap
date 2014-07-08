@@ -1,6 +1,6 @@
 // winutil.h
 //
-// Home repo: https://github.com/tylerneylon/oswrap in oswrap_windows
+// Home repo: https://github.com/tylerneylon/oswrap
 //
 // A set of windows-focused wrappers to enable easier
 // cross-platform code.
