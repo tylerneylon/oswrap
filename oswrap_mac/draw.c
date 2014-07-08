@@ -1,7 +1,7 @@
 // draw.c
 //
 // Home repo: https://github.com/tylerneylon/oswrap in oswrap_mac
-// 
+//
 
 #include "draw.h"
 
@@ -21,12 +21,12 @@ static draw__Color     font_color             = NULL;
 static void init_if_needed() {
   static int is_initialized = false;
   if (is_initialized) return;
-  
+
   generic_rgb_colorspace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
   if (generic_rgb_colorspace == NULL) {
     fprintf(stderr, "Error allocating generic rgb color space.\n");
   }
-  
+
   is_initialized = true;
 }
 
@@ -37,7 +37,7 @@ static void init_if_needed() {
 
 draw__Bitmap draw__new_bitmap(int w, int h) {
   init_if_needed();
-  
+
   int bytes_per_row = w * 4;
   draw__Bitmap bitmap = CGBitmapContextCreate(NULL,   // data
                                               w,
@@ -46,11 +46,11 @@ draw__Bitmap draw__new_bitmap(int w, int h) {
                                               bytes_per_row,
                                               generic_rgb_colorspace,
                                               (CGBitmapInfo)kCGImageAlphaPremultipliedLast);
-  
+
   // Make (0, 0) correspond to the lower-left corner.
   CGContextTranslateCTM(bitmap, 0, h);
   CGContextScaleCTM(bitmap, 1.0, -1.0);
-  
+
   return bitmap;
 }
 
@@ -89,39 +89,39 @@ void draw__set_font_color(draw__Color color) {
 
 xy__Float draw__string(const char *s, int x, int y, int w, float pos) {
   CFStringRef string = CFStringCreateWithCString(kCFAllocatorDefault, s, kCFStringEncodingUTF8);
-  
+
   if (font == NULL || font_color == NULL) {
     fprintf(stderr, "Error in %s: need both font & font_color to be non-NULL.\n", __func__);
     return x;
   }
-  
+
   CFStringRef keys[] = { kCTFontAttributeName, kCTForegroundColorAttributeName };
   CFTypeRef values[] = { font, font_color };
-  
+
   CFDictionaryRef attributes =
   CFDictionaryCreate(kCFAllocatorDefault, (const void**)&keys,
                      (const void**)&values, sizeof(keys) / sizeof(keys[0]),
                      &kCFTypeDictionaryKeyCallBacks,
                      &kCFTypeDictionaryValueCallBacks);
-  
+
   CFAttributedStringRef attrString = CFAttributedStringCreate(kCFAllocatorDefault, string, attributes);
   CFRelease(string);
   CFRelease(attributes);
-  
+
   CTLineRef line = CTLineCreateWithAttributedString(attrString);
-  
+
   // This position set is needed to get a useful x_pos value on the next line.
   CGContextSetTextPosition(ctx, x, y);
   double x_pos = CTLineGetPenOffsetForFlush(line, pos, w);
-  
+
   CGFloat descent;
   double line_width = CTLineGetTypographicBounds(line, NULL, &descent, NULL);
-  
+
   CGContextSetTextPosition(ctx, x + x_pos, y + descent);
-  
+
   CTLineDraw(line, ctx);
   CFRelease(line);
-  
+
   return x + x_pos + line_width;
 }
 

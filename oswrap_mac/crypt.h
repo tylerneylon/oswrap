@@ -2,7 +2,7 @@
 //
 // Home repo: https://github.com/tylerneylon/oswrap in oswrap_mac
 //
-// Cross-platform wrappers for security-related functions 
+// Cross-platform wrappers for security-related functions
 // such as SHA1.
 //
 // On windows, use of this library requires linking with

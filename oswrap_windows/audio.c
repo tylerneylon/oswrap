@@ -79,7 +79,7 @@ static char *run_command(const char *cmd) {
     OutputDebugString(cmd);
     OutputDebugString("\n");
   }
- 
+
   MCIERROR err = mciSendString(cmd, out_str, out_str_len, 0 /* hwndCallback */);
   if (err) {
     char err_str[cmd_len];

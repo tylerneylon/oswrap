@@ -25,30 +25,30 @@
     [self play];
     [self setVolume:0.0];
   }
-  
+
   float v = [self volume] + dir;
   if (v > 1) v = 1;
   if (v < 0) v = 0;
   [self setVolume:v];
-  
+
   if (v == 0) [self stop];
-  
+
   if (v == 0 || v == 1) {
     [timer invalidate];
     timer = nil;
   }
-  
+
 }
 
 - (void)fadeInDirection:(NSNumber *)ns_dir {
-  
+
   if (![NSThread isMainThread]) {
     [self performSelectorOnMainThread:@selector(fadeInDirection:) withObject:ns_dir waitUntilDone:NO];
     return;
   }
-  
+
   dir = [ns_dir floatValue];
-  
+
   if (!timer) {
     timer = [NSTimer scheduledTimerWithTimeInterval:fade_delta_timestep
                                              target:self

@@ -192,7 +192,7 @@ xy__Float draw__string(
     err_msg("Error: GetTextExtentPoint32 failed in %s.\n", __FUNCTION__);
     str_size.cx = 0;
   }
-  
+
   if (pos != 0 && pos != 0.5 && pos != 1) {
     err_msg("Error: in %s, pos should be 0, 0.5, or 1.\n", __FUNCTION__);
     pos = 0;

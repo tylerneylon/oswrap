@@ -9,30 +9,30 @@
 
 char *file__get_path(const char *filename) {
   static char path[path_len];
-  
+
   NSString *name        = [NSString stringWithUTF8String:filename];
   NSString *name_wo_ext = [name stringByDeletingPathExtension];
   NSString *ext         = [name pathExtension];
-  
+
   NSString *nsstr_path = [[NSBundle mainBundle] pathForResource:name_wo_ext ofType:ext];
   if       (nsstr_path == nil) return NULL;
   strncpy(path, [nsstr_path UTF8String], path_len);
-  
+
   return path;
 }
 
 int file__make_dir_if_needed(const char *dir) {
-  
+
   NSFileManager *fm = [NSFileManager defaultManager];
   NSString *nsstr_dir = [NSString stringWithUTF8String:dir];
-  
+
   if ([fm fileExistsAtPath:nsstr_dir]) return true;
-  
+
   NSError *error = nil;
   [fm createDirectoryAtPath:nsstr_dir withIntermediateDirectories:YES attributes:nil error:&error];
-  
+
   if (!error) return true;
-  
+
   NSLog(@"Error creating %@: %@", nsstr_dir, error);
   return false;
 }
@@ -51,7 +51,7 @@ char *file__contents(const char *path, size_t *size) {
   fread(file_contents, 1, *size, f);
   file_contents[*size] = '\0';
   fclose(f);
-  
+
   return file_contents;
 }
 

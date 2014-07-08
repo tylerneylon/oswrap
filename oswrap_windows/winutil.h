@@ -49,7 +49,7 @@ static char *strsep(char **stringp, const char *delim) {
 
 static int vasprintf(char **ret, const char *fmt, va_list args) {
   *ret = NULL;
-  
+
   va_list copy;
   va_copy(copy, args);
   int count = _vscprintf(fmt, args);
