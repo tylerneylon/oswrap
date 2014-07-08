@@ -49,7 +49,7 @@ static char *strsep(char **stringp, const char *delim) {
 
 static int vasprintf(char **ret, const char *fmt, va_list args) {
   *ret = NULL;
-
+  
   va_list copy;
   va_copy(copy, args);
   int count = _vscprintf(fmt, args);
@@ -75,6 +75,22 @@ static char *stpcpy(char *dst, const char *src) {
   return dst;
 }
 
+static char *stpncpy(char *dst, const char *src, size_t n) {
+  char *dst_end = dst + n;
+  for (; (dst < dst_end) && (*dst = *src); ++dst, ++src);
+  char *next_dst = dst;
+  for (; dst < dst_end; ++dst) *dst = '\0';
+  return next_dst;
+}
+
 #define strncat(dst, src, num) strncat_s(dst, num, src, _TRUNCATE)
+
+#define strerror win_strerror
+
+static char *win_strerror(int err) {
+  static char s[256];
+  strerror_s(s, 256, err);
+  return s;
+}
 
 #endif
