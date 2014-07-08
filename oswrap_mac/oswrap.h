@@ -22,6 +22,7 @@ extern "C" {
 #include "draw.h"
 #include "file.h"
 #include "img.h"
+#include "io.h"
 #include "now.h"
 #include "winutil.h"
 #include "xy.h"

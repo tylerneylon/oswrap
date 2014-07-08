@@ -39,7 +39,7 @@ typedef HBITMAP     *draw__Bitmap;
 typedef HFONT        draw__Font;
 typedef COLORREF     draw__Color;
 
-#define draw__gl_format GL_BGR
+#define draw__gl_format GL_BGRA
 
 #endif
 
