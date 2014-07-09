@@ -15,5 +15,6 @@ enum {
   io__enter  = 0x03,
   io__return = 0x0d,
   io__shift  = 0x80,
-  io__esc    = 0x81
+  io__esc    = 0x81,
+  io__f1     = 0x7A
 };

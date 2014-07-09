@@ -50,6 +50,10 @@ char *file__get_path(const char *filename) {
   return path;
 }
 
+char *file__save_dir_for_app(const char *app_name) {
+  return homedir;  // The app_name is only used on the mac side.
+}
+
 int file__make_dir_if_needed(const char *dir_) {
 
   char drive[path_len];
@@ -131,3 +135,5 @@ int file__write(const char *path, const char *contents) {
   }
   return true;
 }
+
+char file__path_sep = '\\';

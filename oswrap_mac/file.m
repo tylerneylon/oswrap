@@ -7,6 +7,17 @@
 
 #define path_len 4096
 
+
+// Internal functions.
+
+NSString *nsstr_save_dir_for_app(NSString *app_name) {
+  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+  return [paths[0] stringByAppendingPathComponent:app_name];
+}
+
+
+// Public functions.
+
 char *file__get_path(const char *filename) {
   static char path[path_len];
 
@@ -19,6 +30,15 @@ char *file__get_path(const char *filename) {
   strncpy(path, [nsstr_path UTF8String], path_len);
 
   return path;
+}
+
+char *file__save_dir_for_app(const char *app_name) {
+  static char save_dir[path_len];
+  
+  NSString *nsstr_dir = nsstr_save_dir_for_app([NSString stringWithUTF8String:app_name]);
+  strncpy(save_dir, [nsstr_dir UTF8String], path_len);
+  
+  return save_dir;
 }
 
 int file__make_dir_if_needed(const char *dir) {
@@ -70,3 +90,5 @@ int file__write(const char *path, const char *contents) {
   }
   return 1;
 }
+
+char file__path_sep = '/';
