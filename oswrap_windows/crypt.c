@@ -96,7 +96,7 @@ char *crypt__sha1(const char *input) {
   char *s_end = s + ascii_len;
 
   for (unsigned int i = 0; i < hash_len; ++i) {
-    s += snprintf(s, (s_end - s), "%02X", (unsigned char)hash_val[i]);
+    s += snprintf(s, (s_end - s), "%02x", (unsigned char)hash_val[i]);
   }
 
   free(hash_val);

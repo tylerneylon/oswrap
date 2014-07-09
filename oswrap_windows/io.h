@@ -18,3 +18,9 @@ enum {
   io__esc    = 0x81,
   io__f1     = 0x7A
 };
+
+// Call this with the following input to get an os-agnostic keycode:
+//  windows: wParam from the WM_KEYDOWN message
+//  mac:     [event keyCode] from the keyDown: method
+// TODO More fully document the mac case.
+int io__convert_system_code(int system_key_code);

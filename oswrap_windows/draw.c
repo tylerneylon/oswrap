@@ -52,6 +52,7 @@ static void init_if_needed() {
   if (active_hdc == NULL) err_msg("Error: CreateCompatibleDC failed.\n");
 
   SetGraphicsMode(active_hdc, GM_ADVANCED);
+  SetBkMode(active_hdc, TRANSPARENT);
 
   is_initialized = true;
 }
