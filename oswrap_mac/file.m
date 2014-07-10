@@ -78,14 +78,14 @@ char *file__contents(const char *path, size_t *size) {
 int file__write(const char *path, const char *contents) {
   FILE *f = fopen(path, "w");
   if (f == NULL) {
-    printf("Error: fopen failed in %s.\n", __func__);
+    printf("Error: fopen failed in %s.\n", __FUNCTION__);
     return 0;
   }
   size_t num_bytes = strlen(contents);
   size_t bytes_written = fwrite(contents, 1 /* elt size */, num_bytes /* num elts */, f);
   fclose(f);
   if (bytes_written < num_bytes) {
-    printf("Error: only wrote %zu bytes in %s; tried to write %zu.\n", bytes_written, __func__, num_bytes);
+    printf("Error: only wrote %zu bytes in %s; tried to write %zu.\n", bytes_written, __FUNCTION__, num_bytes);
     return 0;
   }
   return 1;

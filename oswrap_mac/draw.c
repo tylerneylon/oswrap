@@ -91,7 +91,7 @@ xy__Float draw__string(const char *s, int x, int y, int w, float pos) {
   CFStringRef string = CFStringCreateWithCString(kCFAllocatorDefault, s, kCFStringEncodingUTF8);
 
   if (font == NULL || font_color == NULL) {
-    fprintf(stderr, "Error in %s: need both font & font_color to be non-NULL.\n", __func__);
+    fprintf(stderr, "Error in %s: need both font & font_color to be non-NULL.\n", __FUNCTION__);
     return x;
   }
 

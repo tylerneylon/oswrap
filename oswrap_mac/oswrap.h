@@ -24,7 +24,9 @@ extern "C" {
 #include "img.h"
 #include "io.h"
 #include "now.h"
+#ifdef _WIN32
 #include "winutil.h"
+#endif
 #include "xy.h"
 
 
