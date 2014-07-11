@@ -1,6 +1,6 @@
 // draw.h
 //
-// Home repo: https://github.com/tylerneylon/oswrap in oswrap_mac
+// https://github.com/tylerneylon/oswrap in oswrap_mac
 //
 // Functions to delegate drawing commands to either
 // windows's GDI framework or mac's core graphics.

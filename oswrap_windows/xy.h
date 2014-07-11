@@ -1,6 +1,6 @@
 // xy.h
 //
-// Home repo: https://github.com/tylerneylon/oswrap in oswrap_windows
+// https://github.com/tylerneylon/oswrap in oswrap_windows
 //
 // Coordinate-based types and functions.
 //

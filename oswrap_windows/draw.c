@@ -1,6 +1,6 @@
 // draw.c
 //
-// Home repo: https://github.com/tylerneylon/oswrap in oswrap_windows
+// https://github.com/tylerneylon/oswrap in oswrap_windows
 //
 
 #include "draw.h"

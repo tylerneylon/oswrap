@@ -1,6 +1,6 @@
 // oswrap.h
 //
-// Home repo: https://github.com/tylerneylon/oswrap in oswrap_mac
+// https://github.com/tylerneylon/oswrap in oswrap_mac
 //
 // One header to include them all.
 // Include this header to make all functions

@@ -1,6 +1,6 @@
 // file.h
 //
-// Home repo: https://github.com/tylerneylon/oswrap in oswrap_windows
+// https://github.com/tylerneylon/oswrap in oswrap_windows
 //
 // Functions to easily work with files across platforms.
 //

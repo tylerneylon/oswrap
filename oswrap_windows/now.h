@@ -1,6 +1,6 @@
 // now.h
 //
-// Home repo: https://github.com/tylerneylon/oswrap in oswrap_windows
+// https://github.com/tylerneylon/oswrap in oswrap_windows
 //
 // A cross-platform way to get a high-resolution
 // timestamp.

@@ -1,6 +1,6 @@
 // audio.h
 //
-// Home repo: https://github.com/tylerneylon/oswrap in oswrap_windows
+// https://github.com/tylerneylon/oswrap in oswrap_windows
 //
 // Functions for playing audio files such as mp3's.
 //

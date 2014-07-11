@@ -1,6 +1,6 @@
 // draw.c
 //
-// Home repo: https://github.com/tylerneylon/oswrap in oswrap_mac
+// https://github.com/tylerneylon/oswrap in oswrap_mac
 //
 
 #include "draw.h"

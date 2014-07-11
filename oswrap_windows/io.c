@@ -1,6 +1,6 @@
 // io.c
 //
-// Home repo: https://github.com/tylerneylon/oswrap
+// https://github.com/tylerneylon/oswrap
 //
 
 #include "io.h"

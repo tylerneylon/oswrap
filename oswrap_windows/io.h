@@ -1,6 +1,6 @@
 // io.h
 //
-// Home repo: https://github.com/tylerneylon/oswrap in oswrap_windows
+// https://github.com/tylerneylon/oswrap in oswrap_windows
 //
 // Tools for working with keyboard io.
 //

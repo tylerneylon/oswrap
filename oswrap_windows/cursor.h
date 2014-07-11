@@ -1,6 +1,6 @@
 // cursor.h
 //
-// Home repo: https://github.com/tylerneylon/oswrap in oswrap_windows
+// https://github.com/tylerneylon/oswrap in oswrap_windows
 //
 // Basic control of the mouse cursor.
 //
