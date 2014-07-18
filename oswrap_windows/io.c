@@ -20,6 +20,9 @@ int io__convert_system_code(int system_key_code) {
   case VK_SHIFT:
     return io__shift;
 
+  case VK_F1:
+    return io__f1;
+
   }
 
   // io__tab and io__return are already the same.
