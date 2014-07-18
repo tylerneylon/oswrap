@@ -60,6 +60,11 @@ static CGContextRef CreateARGBBitmapContext (CGImageRef inImage) {
 
 draw__Bitmap img__new_bitmap(const char *path, int *w, int *h) {
   assert(w && h);  // These are both expected to be valid pointers.
+  
+  if (path == NULL) {
+    fprintf(stderr, "%s was given path=NULL.\n", __func__);
+    return NULL;
+  }
 
   NSString *nsstr_path = [NSString stringWithUTF8String:path];
   CFURLRef urlRef = (__bridge CFURLRef)[NSURL fileURLWithPath:nsstr_path];

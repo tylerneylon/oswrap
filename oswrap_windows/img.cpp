@@ -8,6 +8,7 @@ extern "C" {
 #include "winutil.h"
 }
 
+#include <assert.h>
 #include <gdiplus.h>
 using namespace Gdiplus;
 
@@ -24,6 +25,14 @@ typedef struct {
 // Public functions.
 
 extern "C" draw__Bitmap img__new_bitmap(const char *path, int *w, int *h) {
+  assert(w && h);
+
+  if (path == NULL) {
+    char *msg;
+    asprintf(&msg, "Error in %s: path is NULL.\n", __FUNCTION__);
+    OutputDebugString(msg);
+    return NULL;
+  }
 
   // We need a wchar version of path for input to the
   // Gdiplus::Bitmap constructor that loads a file.
@@ -40,6 +49,8 @@ extern "C" draw__Bitmap img__new_bitmap(const char *path, int *w, int *h) {
     char *msg;
     asprintf(&msg, "Error in %s: call to MultiByteToWideChar failed.\n", __FUNCTION__);
     OutputDebugString(msg);
+    free(wchar_path);
+    return NULL;
   }
 
   GdiplusStartupInput gdiplus_config;
@@ -73,6 +84,7 @@ extern "C" draw__Bitmap img__new_bitmap(const char *path, int *w, int *h) {
     char *msg;
     asprintf(&msg, "Error in %s: call to Bitmap::LockBits failed.\n", __FUNCTION__);
     OutputDebugString(msg);
+    // Fall through to deallocate resources; user must still delete the return value.
   }
 
   delete(gdi_bitmap);
