@@ -21,7 +21,7 @@ char *crypt__sha1(const char *input) {
   char *s_end = hex_out + sha1_ascii_len;
 
   for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; ++i) {
-    s += snprintf(s, (s_end - s), "%02X", digest[i]);
+    s += snprintf(s, (s_end - s), "%02x", digest[i]);
   }
 
   return hex_out;
