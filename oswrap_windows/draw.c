@@ -116,7 +116,7 @@ void draw__set_bitmap(draw__Bitmap bitmap) {
   init_if_needed();
 
   Bitmap *b = (Bitmap *)bitmap;
-  UseObject(b->bitmap);
+  SelectObject(active_hdc, b->bitmap);
 
   // Use a bottom-up coordinate system; (0, 0) is the lower-left corner.
   XFORM yflip = { 1.0f, 0.0f, 0.0f, -1.0f, 0.0f, (FLOAT)(b->y_size - 1) };
@@ -165,7 +165,7 @@ void draw__delete_font(draw__Font font) {
 }
 
 void draw__set_font(draw__Font font) {
-  UseObject(font);
+  SelectObject(active_hdc, font);
 }
 
 void draw__set_font_color(draw__Color color) {
