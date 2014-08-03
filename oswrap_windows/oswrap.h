@@ -19,6 +19,7 @@ extern "C" {
 #include "audio.h"
 #include "crypt.h"
 #include "cursor.h"
+#include "dbg.h"
 #include "draw.h"
 #include "file.h"
 #include "img.h"

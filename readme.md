@@ -16,11 +16,10 @@ module   |functionality
 `audio`  | audio loading and playback
 `crypt`  | cryptographic functions
 `cursor` | setting the mouse cursor
+`dbg`    | universal debug output
 `draw`   | basic 2D drawing
 `file`   | using files
 `img`    | loading image files
 `now`    | high-resolution timestamps
 `winutil`| posix-like functions on windows
 `xy`     | working with points and rectangles
-
-
