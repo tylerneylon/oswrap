@@ -6,6 +6,7 @@
 #include "dbg.h"
 
 #include <stdarg.h>
+#include <stdio.h>
 
 #ifndef _WIN32
 #define OutputDebugString(s) printf("%s", s)

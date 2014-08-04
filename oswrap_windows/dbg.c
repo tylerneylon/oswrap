@@ -6,9 +6,12 @@
 #include "dbg.h"
 
 #include <stdarg.h>
+#include <stdio.h>
 
 #ifndef _WIN32
 #define OutputDebugString(s) printf("%s", s)
+#else
+#include "winutil.h"
 #endif
 
 // TODO Update this to work for arbitrary-length strings.
