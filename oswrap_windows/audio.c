@@ -125,6 +125,12 @@ static void ensure_timer_is_set(Audio *audio) {
   fading_audios[i] = audio;
 }
 
+static char *get_cmd_to_rewind(Audio *audio) {
+  static char cmd[cmd_len];
+  snprintf(cmd, cmd_len, "seek %s to start", audio->alias);
+  return cmd;
+}
+
 static char *get_cmd_to_play(Audio *audio) {
   static char cmd[cmd_len];
   const char *play_flag = audio->do_loop ? " repeat" : "";
@@ -164,7 +170,9 @@ void audio__delete(audio__Obj obj) {
 void audio__play(audio__Obj obj) {
   Audio *audio = (Audio *)obj;
 
-  char *cmd = get_cmd_to_play(audio);
+  char *cmd = get_cmd_to_rewind(audio);
+  run_command(cmd);
+  cmd = get_cmd_to_play(audio);
   run_command(cmd);
 }
 
