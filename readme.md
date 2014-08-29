@@ -103,6 +103,38 @@ to have already called - `audio__play` to begin playing
 the sound. This function uses the `do_loop` parameter to
 determine whether or not the sound should loop when played.
 
+---
+## crypt
+
+The crypt module contains a single function
+which calculates the
+[SHA1](http://en.wikipedia.org/wiki/SHA-1)
+hash of a string.
+
+On windows, using this function requires linking with
+either `advapi32.lib` or `advapi32.dll`.
+
+Here's an example of computing a SHA1 hash value:
+
+```
+char *mystring = "where is my towel?";
+char *hash_val = crypt__sha1(mystring);
+```
+
+### ❑ `char *crypt__sha1(const char *input);`
+
+This returns a string representing the SHA1 hash of the
+given `input`. The returned string contains a hex
+representation, so that every byte of the raw hash value
+becomes two ascii bytes of the returned string; for
+example, the raw byte `0x1f` becomes the substring `"1f"`.
+All letters are lower case.
+
+The returned string is static memory that should not be
+freed, and is only guaranteed to be safe to use until the
+next call to `crypt__sha1`. Therefore, this function
+is not thread-safe.
+
 
 
 ---
