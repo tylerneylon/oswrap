@@ -48,29 +48,29 @@ audio__delete(mysound);    // Free the memory when you're done with the sound.
 Every `audio__Obj` allocated with `audio__new` uses memory
 until it is freed by a corresponding call to `audio__delete`.
 
-### ❑ `audio__Obj audio__new(const char *path);`
+#### ❑ `audio__Obj audio__new(const char *path);`
 
 This allocates memory for and loads the audio data from the file
 at the given path. Currently only `mp3` files are guaranteed to be
 supported. The sound won't start playing yet.
 
-### ❑ `void audio__delete(audio__Obj obj);`
+#### ❑ `void audio__delete(audio__Obj obj);`
 
 This frees memory used by an audio file previously loaded with
 a call to `audio__new`. The mac version assumes ARC
 (automatic reference counting) is being used, and deallocates
 the object when all referencing variables have gone out of scope.
 
-### ❑ `void audio__play(audio__Obj obj);`
+#### ❑ `void audio__play(audio__Obj obj);`
 
 This begins playing the given sound from the beginning.
 This plays the sound even if it has already been played before.
 
-### ❑ `void audio__stop(audio__Obj obj);`
+#### ❑ `void audio__stop(audio__Obj obj);`
 
 The immediately stops the sound if it's currently playing.
 
-### ❑ `void audio__fade_in(audio__Obj obj);`
+#### ❑ `void audio__fade_in(audio__Obj obj);`
 
 This fades the volume up to 100% over 3 seconds.
 If the sound was previously stopped, it begins to play,
@@ -84,7 +84,7 @@ earlier operation is effectively cancelled, although
 the current volume is used as the starting point
 for the new fade.
 
-### ❑ `void audio__fade_out(audio__Obj obj);`
+#### ❑ `void audio__fade_out(audio__Obj obj);`
 
 This fades the volume down to silence over 3 seconds, and
 stops playing when the volume reaches silences.
@@ -95,7 +95,7 @@ earlier operation is effectively cancelled, although
 the current volume is used as the starting point
 for the new fade.
 
-### ❑ `void audio__set_loop(audio__Obj obj, bit do_loop);`
+#### ❑ `void audio__set_loop(audio__Obj obj, bit do_loop);`
 
 This causes the sound to repeat itself indefinitely and
 without any pauses. It is still necessary to call - or
@@ -121,7 +121,7 @@ char *mystring = "where is my towel?";
 char *hash_val = crypt__sha1(mystring);
 ```
 
-### ❑ `char *crypt__sha1(const char *input);`
+#### ❑ `char *crypt__sha1(const char *input);`
 
 This returns a string representing the SHA1 hash of the
 given `input`. The returned string contains a hex
