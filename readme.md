@@ -135,6 +135,68 @@ freed, and is only guaranteed to be safe to use until the
 next call to `crypt__sha1`. Therefore, this function
 is not thread-safe.
 
+---
+## cursor
+
+The cursor module offers simple controls to get
+and set the type of mouse cursor. For example,
+the ibeam type is used to indicate that the mouse
+is over a text input, and the hand is often used
+to indicate a link in web pages.
+
+Here's an example of setting the cursor to an ibeam
+when the mouse is over a text input, and later
+restoring it to its previous state:
+```
+cursor__Type old_cursor = cursor__get();
+cursor__set(cursor__ibeam);
+// Later, when the cursor is no longer on the text input.
+if (old_cursor == cursor__other) old_cursor = cursor__default;
+cursor__set(old_cursor);
+```
+
+#### ❑ `cursor__Type cursor__get();`
+
+Returns the type of the current mouse cursor.
+The type of the return value, `cursor__Type`,
+is an enum defined
+in `cursor.h`. It can return any of the types
+listed below in the `cursor__set` documentation,
+as well as one additional type:
+
+* `cursor__other` = *an unknown cursor type*,
+
+which indicates that the current mouse type is
+one not known to `oswrap`. In this case, if you
+change the mouse type using `cursor__set`, you
+won't be able to restore the previous cursor
+type using `oswrap`. This is not generally an issue
+if you exclusively use `oswrap` to control the
+cursor in your app.
+
+#### ❑ `void cursor__set(cursor__Type which_cursor);`
+
+Sets the current mouse cursor to the given value. The
+following values of `which_cursor` are supported:
+
+* `cursor__default` = *the default mouse pointer*,
+* `cursor__ibeam` = *the usual text-input mouse pointer*,
+* `cursor__hand` = *the usual hyperlink pointing hand*.
+
+In some cases — in particular, this is common on windows —
+your app window will have a default cursor type, and that
+type will quickly override a call to `cursor__set`, so that
+the user may not even realize you attempted to programmatically
+set the cursor.
+
+There are two solutions to this.
+First, you can set the `hCursor` field of `WNDCLASSEX` to
+`NULL` when calling `RegisterClassEx`, which means that
+your window has no default mouse cursor. Alternatively,
+you could call `cursor__set` periodically in your event
+loop. In practice, it appears to be sufficient to call this
+for each `WM_MOUSEMOVE` message received, and does not
+adversely affect performance.
 
 
 ---
