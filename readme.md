@@ -200,3 +200,37 @@ adversely affect performance.
 
 
 ---
+## dbg
+
+The dbg module contains a single function, `dbg__printf`,
+which is capable of providing `printf`-stye debug output
+on either platform. Xcode automatically captures the
+output of the usual `printf` function, but windows does not,
+offering instead the weaker `OutputDebugString` function,
+which only accepts a static string without formatting
+or variadic parameters. The `dbg__printf` function adds
+a universal, full-featured variadic interface to windows.
+
+Here is a usage example:
+```
+// Earlier, a function was declared: float f(int i);
+for (int i = 0; i < 4; ++i) {
+  dbg__printf("i=%d; f(i)=%g\n", i, f(i));
+}
+```
+
+#### ❑ `int dbg__printf(const char *fmt, ...);`
+
+This function acts identically to the usual `printf`
+except that its output is visible in Visual Studio's
+output window, unlike the the usual `printf` function.
+
+There is still one significant difference between the
+format specifiers used on mac versus windows. On mac,
+the specifier `%zd` is used to indicate a `size_t` parameter
+type, whereas on windows, the correct specifier is `%Id`.
+
+As a reminder, the return value of `printf` indicates the
+number of characters printed.
+
+---
