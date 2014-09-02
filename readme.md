@@ -234,3 +234,29 @@ As a reminder, the return value of `printf` indicates the
 number of characters printed.
 
 ---
+## now
+
+The now module contains a single function, `now`,
+which returns a high-precision timestamp from the
+machine's monotonic clock. This value is not guaranteed
+to reflect wall-clock time, but rather is designed to
+increase over time as your app runs.
+
+Here is a usage example:
+```
+double start_time = now();
+f(x);
+double time_passed = now() - start_time;
+printf("f(x) took %g seconds.\n", time_passed);
+```
+
+#### ❑ `double now();`
+
+This function returns a timestamp from the machine's
+monotonic clock. The timestamps are in seconds relative
+to an undefined 0-instant. This means that
+intervals between timestamps within a single run of
+the app are meaningful. The returned values attempt to
+have resolution on the order of microseconds or better.
+
+---
