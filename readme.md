@@ -233,6 +233,50 @@ type, whereas on windows, the correct specifier is `%Id`.
 As a reminder, the return value of `printf` indicates the
 number of characters printed.
 
+
+---
+## draw
+
+The draw module contains functions to handle basic 2D
+drawing functionality and text rendering. Images are
+rendered to a memory buffer which can then be accessed
+directly or used a texture to be passed into OpenGL.
+
+The functions of the draw module are described in the
+following subsections:
+
+* bitmap and pixel management,
+* text rendering, and
+* line and rectangle drawing.
+
+Usage examples are given in each subsection.
+
+### Bitmap and pixel management
+
+#### ❑ `draw__Bitmap draw__new_bitmap(int w, int h);`
+#### ❑ `void draw__delete_bitmap(draw__Bitmap bitmap);`
+#### ❑ `void draw__set_bitmap(draw__Bitmap bitmap);`
+#### ❑ `void *draw__get_bitmap_data(draw__Bitmap bitmap);`
+
+### Text rendering
+
+#### ❑ `draw__Font draw__new_font(const char *name, int size);`
+#### ❑ `void draw__delete_font(draw__Font font);`
+#### ❑ `void draw__set_font(draw__Font font);`
+#### ❑ `void draw__set_font_color(draw__Color color);`
+#### ❑ `xy__Float draw__string(const char *s, int x, int y, int w, float pos);`
+
+### Line and rectangle drawing
+
+#### ❑ `draw__Color draw__new_color(double r, double g, double b);`
+#### ❑ `void draw__delete_color(draw__Color color);`
+#### ❑ `void draw__rgb_fill_color(double r, double g, double b);`
+#### ❑ `void draw__rgb_stroke_color(double r, double g, double b);`
+#### ❑ `void draw__fill_rect(xy__Rect rect);`
+#### ❑ `void draw__stroke_rect(xy__Rect rect);`
+#### ❑ `void draw__line(xy__Float x1, xy__Float y1, xy__Float x2, xy__Float y2);`
+
+
 ---
 ## now
 
