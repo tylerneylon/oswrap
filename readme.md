@@ -253,10 +253,68 @@ Usage examples are given in each subsection.
 
 ### Bitmap and pixel management
 
+Work with a bitmap by first creating it, using it,
+and then deleting it.
+A bitmap is an object of type `draw__Bitmap`.
+
+New bitmaps are created either by calling
+`draw__new_bitmap` for a blank canvas, or by
+calling `img__new_bitmap`, documented in the `img` section,
+for loading an image file. Call `draw__set_bitmap` to
+select which bitmap will be affected by subsequent drawing calls.
+When you're done with a bitmap, free the memory by calling
+`draw__delete_bitmap`.
+
+Here's an example:
+```
+draw__Bitmap bitmap = draw__new_bitmap(1024, 1024);
+draw__set_bitmap(bitmap);                        // Set which bitmap to draw to.
+my_drawing_routine();                            // Draw calls work with the currently set bitmap.
+save_pixel_data(draw__get_bitmap_data(bitmap));  // Access raw pixel data.
+draw__delete_bitmap(bitmap);                     // Free the memory used by the bitmap.
+```
+
+If you'd like to use native drawing functions, you can
+treat a `draw__Bitmap` as a `CGContextRef` on mac, or as
+a `HBITMAP *` on windows; though doing so will
+make it harder to keep your code cross-platform.
+
 #### ❑ `draw__Bitmap draw__new_bitmap(int w, int h);`
+
+Create a new in-memory bitmap canvas of width `w` and
+height `h`. This requires at least `4 * w * h` bytes along
+with some per-bitmap overhead. See the notes for
+`draw__get_bitmap_data` for more information about the
+exact pixel format used.
+
 #### ❑ `void draw__delete_bitmap(draw__Bitmap bitmap);`
+
+Free the memory associated with the given bitmap.
+
 #### ❑ `void draw__set_bitmap(draw__Bitmap bitmap);`
+
+Choose which bitmap will be affected by subsequent draw calls.
+This is an inexpensive operation; if you're not certain that
+your bitmap is already set as the active one, the suggested
+practice is to call `draw__set_bitmap` liberally to make
+coding easier without any significant performance cost.
+
+Because the draw module internally tracks some state, including
+the active bitmap,
+it is not thread-safe.
+
 #### ❑ `void *draw__get_bitmap_data(draw__Bitmap bitmap);`
+
+This returns a pointer to the raw pixel data associated with the
+given bitmap. This data is safe to either read from or write to.
+The data is guaranteed to live until you call `draw__delete_bitmap`
+on the associated bitmap. Do not perform any direct memory
+management on the pointer returned by `draw__get_bitmap_data`.
+
+The return value has pixels stored as one byte per RGB, plus
+a byte for an alpha channel. The exact layout is `RGBA` on mac
+and `BGRA` on windows; when passing data directly to OpenGL,
+use the `draw__gl_format` constant to indicate the pixel format.
 
 ### Text rendering
 
