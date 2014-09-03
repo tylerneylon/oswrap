@@ -10,6 +10,7 @@
 
 #include "winutil.h"
 
+#include <io.h>
 #include <stdio.h>
 
 #include "cbit.h"
@@ -56,14 +57,15 @@ char *file__save_dir_for_app(const char *app_name) {
 
 int file__make_dir_if_needed(const char *dir_) {
 
+  bit did_succeed = true;
+
+  if (file__exists(dir_)) return did_succeed;
+
   char drive[path_len];
   char dir[path_len];
   char file[path_len];
   char ext[path_len];
   _splitpath_s(dir_, drive, path_len, dir, path_len, file, path_len, ext, path_len);
-
-  // Drop drive's trailing slash.
-  if (strlen(drive)) drive[strlen(drive) - 1] = '\0';
 
   // _splitpath_s incorrectly assumes the last path component is a file; add it back.
   strncat(dir, file, path_len);
@@ -72,29 +74,23 @@ int file__make_dir_if_needed(const char *dir_) {
   char path[path_len];
   strncpy(path, drive, path_len);
 
-  bit success = true;
   char *token;
   char *dir_ptr = dir;
   while ((token = strsep(&dir_ptr, "\\"))) {
     if (strlen(token) == 0) continue;
     if (strlen(path)) strncat(path, "\\", path_len);
     strncat(path, token, path_len);
-    if (!file__exists(path)) success = success && CreateDirectory(path, NULL);
+    if (!file__exists(path)) {
+      did_succeed = did_succeed &&  CreateDirectory(path, NULL);
+    }
   }
 
-  return success;
+  return did_succeed;
 }
 
 int file__exists(const char *path) {
-  // This could use the PathFileExists function, but then users would
-  // have to explicitly link with shlwapi.lib (or dll), and I'd rather
-  // keep things simpler when possible.
-  FILE *f;
-  fopen_s(&f, path, "rb");
-  bit exists = !!f;
-  if (f) fclose(f);
-
-  return exists;
+  int access_mode = 0;  // Check for existence.
+  return _access(path, access_mode) == 0;
 }
 
 char *file__contents(const char *path, size_t *size) {
