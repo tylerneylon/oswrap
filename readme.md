@@ -48,29 +48,29 @@ audio__delete(mysound);    // Free the memory when you're done with the sound.
 Every `audio__Obj` allocated with `audio__new` uses memory
 until it is freed by a corresponding call to `audio__delete`.
 
-#### ❑ `audio__Obj audio__new(const char *path);`
+##### ❑ `audio__Obj audio__new(const char *path);`
 
 This allocates memory for and loads the audio data from the file
 at the given path. Currently only `mp3` files are guaranteed to be
 supported. The sound won't start playing yet.
 
-#### ❑ `void audio__delete(audio__Obj obj);`
+##### ❑ `void audio__delete(audio__Obj obj);`
 
 This frees memory used by an audio file previously loaded with
 a call to `audio__new`. The mac version assumes ARC
 (automatic reference counting) is being used, and deallocates
 the object when all referencing variables have gone out of scope.
 
-#### ❑ `void audio__play(audio__Obj obj);`
+##### ❑ `void audio__play(audio__Obj obj);`
 
 This begins playing the given sound from the beginning.
 This plays the sound even if it has already been played before.
 
-#### ❑ `void audio__stop(audio__Obj obj);`
+##### ❑ `void audio__stop(audio__Obj obj);`
 
 The immediately stops the sound if it's currently playing.
 
-#### ❑ `void audio__fade_in(audio__Obj obj);`
+##### ❑ `void audio__fade_in(audio__Obj obj);`
 
 This fades the volume up to 100% over 3 seconds.
 If the sound was previously stopped, it begins to play,
@@ -84,7 +84,7 @@ earlier operation is effectively cancelled, although
 the current volume is used as the starting point
 for the new fade.
 
-#### ❑ `void audio__fade_out(audio__Obj obj);`
+##### ❑ `void audio__fade_out(audio__Obj obj);`
 
 This fades the volume down to silence over 3 seconds, and
 stops playing when the volume reaches silences.
@@ -95,7 +95,7 @@ earlier operation is effectively cancelled, although
 the current volume is used as the starting point
 for the new fade.
 
-#### ❑ `void audio__set_loop(audio__Obj obj, bit do_loop);`
+##### ❑ `void audio__set_loop(audio__Obj obj, bit do_loop);`
 
 This causes the sound to repeat itself indefinitely and
 without any pauses. It is still necessary to call - or
@@ -121,7 +121,7 @@ char *mystring = "where is my towel?";
 char *hash_val = crypt__sha1(mystring);
 ```
 
-#### ❑ `char *crypt__sha1(const char *input);`
+##### ❑ `char *crypt__sha1(const char *input);`
 
 This returns a string representing the SHA1 hash of the
 given `input`. The returned string contains a hex
@@ -155,7 +155,7 @@ if (old_cursor == cursor__other) old_cursor = cursor__default;
 cursor__set(old_cursor);
 ```
 
-#### ❑ `cursor__Type cursor__get();`
+##### ❑ `cursor__Type cursor__get();`
 
 Returns the type of the current mouse cursor.
 The type of the return value, `cursor__Type`,
@@ -174,7 +174,7 @@ type using `oswrap`. This is not generally an issue
 if you exclusively use `oswrap` to control the
 cursor in your app.
 
-#### ❑ `void cursor__set(cursor__Type which_cursor);`
+##### ❑ `void cursor__set(cursor__Type which_cursor);`
 
 Sets the current mouse cursor to the given value. The
 following values of `which_cursor` are supported:
@@ -219,7 +219,7 @@ for (int i = 0; i < 4; ++i) {
 }
 ```
 
-#### ❑ `int dbg__printf(const char *fmt, ...);`
+##### ❑ `int dbg__printf(const char *fmt, ...);`
 
 This function acts identically to the usual `printf`
 except that its output is visible in Visual Studio's
@@ -269,7 +269,7 @@ Here's an example:
 ```
 draw__Bitmap bitmap = draw__new_bitmap(1024, 1024);
 draw__set_bitmap(bitmap);                        // Set which bitmap to draw to.
-my_drawing_routine();                            // Draw calls work with the currently set bitmap.
+my_drawing_routine();                            // Draws to the currently set bitmap.
 save_pixel_data(draw__get_bitmap_data(bitmap));  // Access raw pixel data.
 draw__delete_bitmap(bitmap);                     // Free the memory used by the bitmap.
 ```
@@ -279,7 +279,7 @@ treat a `draw__Bitmap` as a `CGContextRef` on mac, or as
 a `HBITMAP *` on windows; though doing so will
 make it harder to keep your code cross-platform.
 
-#### ❑ `draw__Bitmap draw__new_bitmap(int w, int h);`
+##### ❑ `draw__Bitmap draw__new_bitmap(int w, int h);`
 
 Create a new in-memory bitmap canvas of width `w` and
 height `h`. This requires at least `4 * w * h` bytes along
@@ -287,11 +287,11 @@ with some per-bitmap overhead. See the notes for
 `draw__get_bitmap_data` for more information about the
 exact pixel format used.
 
-#### ❑ `void draw__delete_bitmap(draw__Bitmap bitmap);`
+##### ❑ `void draw__delete_bitmap(draw__Bitmap bitmap);`
 
 Free the memory associated with the given bitmap.
 
-#### ❑ `void draw__set_bitmap(draw__Bitmap bitmap);`
+##### ❑ `void draw__set_bitmap(draw__Bitmap bitmap);`
 
 Choose which bitmap will be affected by subsequent draw calls.
 This is an inexpensive operation; if you're not certain that
@@ -303,7 +303,7 @@ Because the draw module internally tracks some state, including
 the active bitmap,
 it is not thread-safe.
 
-#### ❑ `void *draw__get_bitmap_data(draw__Bitmap bitmap);`
+##### ❑ `void *draw__get_bitmap_data(draw__Bitmap bitmap);`
 
 This returns a pointer to the raw pixel data associated with the
 given bitmap. This data is safe to either read from or write to.
@@ -350,18 +350,18 @@ draw__string("hello!", 10, 10, width, left_align);
 
 #### Fonts
 
-#### ❑ `draw__Font draw__new_font(const char *name, int size);`
+##### ❑ `draw__Font draw__new_font(const char *name, int size);`
 
 Creates a new `draw__Font` object based on the given font face name
 and font size. You must call this function once for each font size
 you'd like to use.
 
-#### ❑ `void draw__set_font(draw__Font font);`
+##### ❑ `void draw__set_font(draw__Font font);`
 
 Set the given font object as currently active. Some font
 must be set for text rendering to work.
 
-#### ❑ `void draw__delete_font(draw__Font font);`
+##### ❑ `void draw__delete_font(draw__Font font);`
 
 Release any resources used by the `draw__Font` object.
 The font object can no longer be used after it's deleted.
@@ -373,28 +373,23 @@ fonts, but so far color objects can only be used with fonts.
 Line- and rectangle-drawing functions use a different color
 interface explained below.
 
-#### ❑ `draw__Color draw__new_color(double r, double g, double b);`
+##### ❑ `draw__Color draw__new_color(double r, double g, double b);`
 
 Create a new color object with the given red/green/blue values.
 The values are expected to be in the range 0 to 1.
 
-#### ❑ `void draw__set_font_color(draw__Color color);`
+##### ❑ `void draw__set_font_color(draw__Color color);`
 
 Set the given color as the active font color.
 
-#### ❑ `void draw__delete_color(draw__Color color);`
+##### ❑ `void draw__delete_color(draw__Color color);`
 
 Release any resources used by the `draw__Color` object.
 The color object can no longer be used after it's deleted.
 
 #### Rendering
 
-4, 5, 6, 7:
-
-#### ❑ `xy__Float draw__string(const char *s, int x, int y, int w, float pos);`
 ##### ❑ `xy__Float draw__string(const char *s, int x, int y, int w, float pos);`
-###### ❑ `xy__Float draw__string(const char *s, int x, int y, int w, float pos);`
-####### ❑ `xy__Float draw__string(const char *s, int x, int y, int w, float pos);`
 
 Draw the given string `s` in the rectangle with minimum corner
 `x, y` and width `w`. The alignment of the text depends on the `pos`
@@ -413,11 +408,11 @@ active font and font color by calling
 
 ### Line and rectangle drawing
 
-#### ❑ `void draw__rgb_fill_color(double r, double g, double b);`
-#### ❑ `void draw__rgb_stroke_color(double r, double g, double b);`
-#### ❑ `void draw__fill_rect(xy__Rect rect);`
-#### ❑ `void draw__stroke_rect(xy__Rect rect);`
-#### ❑ `void draw__line(xy__Float x1, xy__Float y1, xy__Float x2, xy__Float y2);`
+##### ❑ `void draw__rgb_fill_color(double r, double g, double b);`
+##### ❑ `void draw__rgb_stroke_color(double r, double g, double b);`
+##### ❑ `void draw__fill_rect(xy__Rect rect);`
+##### ❑ `void draw__stroke_rect(xy__Rect rect);`
+##### ❑ `void draw__line(xy__Float x1, xy__Float y1, xy__Float x2, xy__Float y2);`
 
 
 ---
@@ -437,7 +432,7 @@ double time_passed = now() - start_time;
 printf("f(x) took %g seconds.\n", time_passed);
 ```
 
-#### ❑ `double now();`
+##### ❑ `double now();`
 
 This function returns a timestamp from the machine's
 monotonic clock. The timestamps are in seconds relative
