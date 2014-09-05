@@ -271,7 +271,7 @@ draw__Bitmap bitmap = draw__new_bitmap(1024, 1024);
 draw__set_bitmap(bitmap);                        // Set which bitmap to draw to.
 my_drawing_routine();                            // Draws to the currently set bitmap.
 save_pixel_data(draw__get_bitmap_data(bitmap));  // Access raw pixel data.
-draw__delete_bitmap(bitmap);                     // Free the memory used by the bitmap.
+draw__delete_bitmap(bitmap);                     // Free memory used by the bitmap.
 ```
 
 If you'd like to use native drawing functions, you can
