@@ -318,16 +318,96 @@ use the `draw__gl_format` constant to indicate the pixel format.
 
 ### Text rendering
 
+Similar to `draw__Bitmap` objects, there is a `draw__Font` object
+which must be initialized, set as active, and then used to render
+text. In addition, a font color of type `draw__Color` must also be
+allocated and set as active. Both fonts and colors use resources
+that can be
+explicitly freed by calling `draw__delete_{font,color}` when
+they're no longer needed.
+
+Here's an example that draws the string "hello!" in blue with the
+lower-left corner of the text at (10, 10); this interpretation
+assumes the image will be rendered with the lower-left corner
+as position (0, 0).
+
+```
+// A draw__Bitmap has already been created and set.
+
+// Choose a font.
+draw__Font font = draw__new_font("Helvetica", 26);
+draw__set_font(font);
+
+// Choose a font color.
+draw__Color blue = draw__new_color(0.0, 0.0, 1.0);
+draw__set_font_color(blue);
+
+// Draw the text.
+int width = 100;
+float left_align = 0.0;
+draw__string("hello!", 10, 10, width, left_align);
+```
+
+#### Fonts
+
 #### ❑ `draw__Font draw__new_font(const char *name, int size);`
-#### ❑ `void draw__delete_font(draw__Font font);`
+
+Creates a new `draw__Font` object based on the given font face name
+and font size. You must call this function once for each font size
+you'd like to use.
+
 #### ❑ `void draw__set_font(draw__Font font);`
+
+Set the given font object as currently active. Some font
+must be set for text rendering to work.
+
+#### ❑ `void draw__delete_font(draw__Font font);`
+
+Release any resources used by the `draw__Font` object.
+The font object can no longer be used after it's deleted.
+
+#### Font colors
+
+The *new* and *delete* color functions are not obviously specific to
+fonts, but so far color objects can only be used with fonts.
+Line- and rectangle-drawing functions use a different color
+interface explained below.
+
+#### ❑ `draw__Color draw__new_color(double r, double g, double b);`
+
+Create a new color object with the given red/green/blue values.
+The values are expected to be in the range 0 to 1.
+
 #### ❑ `void draw__set_font_color(draw__Color color);`
+
+Set the given color as the active font color.
+
+#### ❑ `void draw__delete_color(draw__Color color);`
+
+Release any resources used by the `draw__Color` object.
+The color object can no longer be used after it's deleted.
+
+#### Rendering
+
 #### ❑ `xy__Float draw__string(const char *s, int x, int y, int w, float pos);`
+
+Draw the given string `s` in the rectangle with minimum corner
+`x, y` and width `w`. The alignment of the text depends on the `pos`
+parameter as follows:
+
+| `pos` | alignment
+|-------|-------------
+| 0     | **left**: left edge of text starts at `x`
+| 0.5   | **center**: center of text is at `x + w/2`
+| 1     | **right**: right edge of text is at `x + w`
+
+In order for text rending to work, you must have first set an
+active bitmap by calling `draw__set_bitmp`, then set an
+active font and font color by calling
+`draw__set_font` and `draw__set_font_color`.
 
 ### Line and rectangle drawing
 
-#### ❑ `draw__Color draw__new_color(double r, double g, double b);`
-#### ❑ `void draw__delete_color(draw__Color color);`
 #### ❑ `void draw__rgb_fill_color(double r, double g, double b);`
 #### ❑ `void draw__rgb_stroke_color(double r, double g, double b);`
 #### ❑ `void draw__fill_rect(xy__Rect rect);`
