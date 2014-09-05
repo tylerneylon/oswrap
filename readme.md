@@ -389,7 +389,12 @@ The color object can no longer be used after it's deleted.
 
 #### Rendering
 
+4, 5, 6, 7:
+
 #### ❑ `xy__Float draw__string(const char *s, int x, int y, int w, float pos);`
+##### ❑ `xy__Float draw__string(const char *s, int x, int y, int w, float pos);`
+###### ❑ `xy__Float draw__string(const char *s, int x, int y, int w, float pos);`
+####### ❑ `xy__Float draw__string(const char *s, int x, int y, int w, float pos);`
 
 Draw the given string `s` in the rectangle with minimum corner
 `x, y` and width `w`. The alignment of the text depends on the `pos`
