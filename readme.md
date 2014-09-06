@@ -414,6 +414,62 @@ active font and font color by calling
 ##### ❑ `void draw__stroke_rect(xy__Rect rect);`
 ##### ❑ `void draw__line(xy__Float x1, xy__Float y1, xy__Float x2, xy__Float y2);`
 
+---
+## file
+
+The file module provides easier uniform access to files. While the standard
+`f{open,read,write,close}` interface works on both windows and mac machines,
+there are some differences worth abstracting away.
+
+First, windows files are *not* open in binary mode by default, while mac files are.
+The `file__contents` provides binary data without text-mode interpretation, which is
+what you'd expect if you're used to working with linux or mac file systems.
+The `file__write` function is a convenient one-liner — the write-version analog to
+`file__contents`. If more fine-grained file control is needed, direct use of the
+`fopen`-and-friends functions is encouraged, keeping in mind to use binary-mode
+in `fopen`.
+
+Mac apps are packaged in a fundamentally different way from windows apps in that
+a mac app is itself a directory, while on windows an executable is just a file that
+must come packaged explicitly with other files, rather than partially hidden within
+any special kind of directory. Each os contains different paths for either:
+
+* files that came bundled with your app, or
+* files that your app created after installation.
+
+The function `file__get_path` helps you find files bundled with your app.
+The function `file__save_dir_for_app` provides the absolute path of the directory
+where your app can save to or load from files it creates.
+
+Here is an example use case by a theoretical game:
+```
+// Locate and load the bundled file intro_story.txt.
+
+char *path  = file__get_path("intro_story.txt");
+char *story = file__contents(path);
+show_text_to_user(story);
+free(story);
+
+// Save the player's game.
+
+char *base_dir = file__save_dir_for_app("MyGame");
+
+char save_dir[2048];
+snprintf(save_dir, 2048, "%s%c%s", base_dir, file__path_sep, "saves");
+file__make_dir_if_needed(save_dir);
+
+char save_path[2048];
+snprintf(save_path, 2048, "%s%c%s", save_dir, file__path_sep, "mysavefile");
+file__write(save_path, get_save_data());
+```
+
+##### ❑ `char *file__get_path(const char *filename);`
+##### ❑ `char *file__save_dir_for_app(const char *app_name);`
+##### ❑ `int file__make_dir_if_needed(const char *dir);`
+##### ❑ `int file__exists(const char *path);`
+##### ❑ `char *file__contents(const char *path, size_t *size);`
+##### ❑ `int file__write(const char *path, const char *contents);`
+##### ❑ `extern char file__path_sep;`
 
 ---
 ## now
