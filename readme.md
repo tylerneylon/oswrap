@@ -526,6 +526,29 @@ between directories in a path string. On mac it is `/` while
 on windows it is `\`.
 
 ---
+## img
+
+The img module contains a single function, `img__new_bitmap`,
+which loads an image file into a `draw__Bitmap` object.
+The interpretation of file data is left up to the os, so that
+the list of supported file types is also system-dependent.
+In practice, popular file types such as `.jpg` and `.png`
+files appear to be universally supported.
+
+The loaded `draw__Bitmap` can be drawn onto, edited at
+the raw pixel level, or sent into OpenGL for rendering
+as a texture.
+
+##### ❑ `draw__Bitmap img__new_bitmap(const char *path, int *w, int *h);`
+
+Loads the image file at `path` into a new `draw__Bitmap` object.
+The caller owns the returned bitmap; free it by calling `draw__delete_bitmap`
+to deallocate its resources.
+The width and height of the image are output as the values of
+`*w` and `*h`; these pointers are expected to be non-NULL.
+
+
+---
 ## now
 
 The now module contains a single function, `now`,
