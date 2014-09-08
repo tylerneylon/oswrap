@@ -463,13 +463,67 @@ snprintf(save_path, 2048, "%s%c%s", save_dir, file__path_sep, "mysavefile");
 file__write(save_path, get_save_data());
 ```
 
+The current `oswrap` implementation is not guaranteed to
+recognize `~` as a shorthand path element for the
+current user's home directory.
+
 ##### ❑ `char *file__get_path(const char *filename);`
+
+Returns the absolute path of the given bundled filename,
+or `NULL` if the file isn't found. The returned string
+is owned by the callee and should not be freed; it is
+safe to use until `file__get_path` is called again.
+
 ##### ❑ `char *file__save_dir_for_app(const char *app_name);`
+
+Returns the absolute path of a directory in which it is
+reasonable to save files. On mac, this is your app's
+directory in the user's `Application Support` directory;
+on windows, this is the same directory that your
+executable file resides in.
+
+The returned path does *not* include a trailing slash character.
+
+The returned value is owned by the callee and should not
+be freed; it is safe to use until `file__save_dir_for_app`
+is called again.
+
 ##### ❑ `int file__make_dir_if_needed(const char *dir);`
+
+If a directory or file already exists at the given location,
+this function does nothing and returns 1 indicating
+success. If nothing exists at the given location, then it
+is created as a directory. If any intermediate directories
+are also missing, they are also created. The return value
+is 1 when the call is successful, and 0 if there is an error.
+
 ##### ❑ `int file__exists(const char *path);`
+
+Returns 0 if there is nothing at the given path;
+returns nonzero if a file or directory exists there.
+
 ##### ❑ `char *file__contents(const char *path, size_t *size);`
+
+Reads the entire contents of the file at `path` into a
+newly-allocated, null-terminated buffer and returns a pointer to that
+buffer. The size of the buffer is also written to `size`, which
+must *not* be `NULL`. The caller
+is responsible for freeing the returned buffer.
+
 ##### ❑ `int file__write(const char *path, const char *contents);`
+
+Opens the file at `path` for writing and sets the contents of that
+file to `contents`. The length of `contents` is determined by treating
+it as a null-terminated string. If a file at `path` already existed,
+it is over-written; otherwise a new file is created with the given
+contents. The return value is 0 when there is an error and nonzero
+when the write succeeds.
+
 ##### ❑ `extern char file__path_sep;`
+
+This is a single character used by the system as a separator
+between directories in a path string. On mac it is `/` while
+on windows it is `\`.
 
 ---
 ## now
