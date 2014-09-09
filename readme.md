@@ -539,6 +539,19 @@ The loaded `draw__Bitmap` can be drawn onto, edited at
 the raw pixel level, or sent into OpenGL for rendering
 as a texture.
 
+Here's an example usage:
+```
+char *path              = file__get_path("my_image.png");
+draw__Bitmap img_bitmap = img__new_bitmap(path);
+void *pixels            = draw__get_bitmap_data(img_bitmap);
+
+// We send in draw__gl_format to indicate whether the bytes
+// are set up as RGBA or BGRA.
+use_raw_pixels(pixels, draw__gl_format);
+
+draw__delete_bitmap(img_bitmap);
+```
+
 ##### ❑ `draw__Bitmap img__new_bitmap(const char *path, int *w, int *h);`
 
 Loads the image file at `path` into a new `draw__Bitmap` object.
