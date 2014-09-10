@@ -409,10 +409,35 @@ active font and font color by calling
 ### Line and rectangle drawing
 
 ##### ❑ `void draw__rgb_fill_color(double r, double g, double b);`
+
+Set the current color used to fill rectangles.
+Each component is expected to be in the range 0 to 1.
+
 ##### ❑ `void draw__rgb_stroke_color(double r, double g, double b);`
+
+Set the current color used to draw lines, which corresponds to
+the drawing done by both `draw__stroke_rect` and `draw__line`.
+Each component is expected to be in the range 0 to 1.
+
 ##### ❑ `void draw__fill_rect(xy__Rect rect);`
+
+Fills the given rectangle with the last fill color set
+via `draw__rgb_fill_color`.
+The rectangle `rect` is interpreted
+as referring to pixel coordinates.
+
 ##### ❑ `void draw__stroke_rect(xy__Rect rect);`
+
+Draws the outline of the given rectangle with the last stroke
+color set via `draw__rgb_stroke_color`.
+The rectangle `rect` is interpreted
+as referring to pixel coordinates.
+
 ##### ❑ `void draw__line(xy__Float x1, xy__Float y1, xy__Float x2, xy__Float y2);`
+
+Draws a line between the two points interpreted as pixel coordinates in
+the currently active bitmap.
+The color used is the last one set via `draw__rgb_stroke_color`.
 
 ---
 ## file
