@@ -613,3 +613,31 @@ the app are meaningful. The returned values attempt to
 have resolution on the order of microseconds or better.
 
 ---
+## winutil
+
+The winutil module is unique in that it only exists on the
+windows side of `oswrap`, and in that it is a header-only
+module. It exposes a number of useful posix functions which
+are missing or normally cause compile errors on windows.
+
+Since these are standard functions, official documentation
+for them can be found by looking at man pages or as top
+search results online. The supported functions and
+brief summaries are provided here.
+
+| function    | summary                                                               |
+|-------------|-----------------------------------------------------------------------|
+| `strdup`    | Allocate memory for and copy a string.                                |
+| `strsep`    | Split a string into pieces based on a given delimiter.                |
+| `strncpy`   | Copy a string.                                                        |
+| `stpcpy`    | Copies a string; keeps it easy to append to it.                       |
+| `stpncpy`   | A buffer-length-checking version of `stpcpy`.                         |
+| `strncat`   | Appends one string to the end of another.                             |
+| `snprintf`  | Like `printf`, but writes to a string rather than stdout.             |
+| `vsnprintf` | A variadic version of `snprintf`.                                     |
+| `asprintf`  | Like `snprintf`, but allocates an appropriately-sized string for you. |
+| `vasprintf` | A variadic version of `asprintf`.                                     |
+| `strerror`  | Convers the current `errno` value to a string.                        |
+| `basename`  | Extract the filename from a path.                                     |
+
+---
