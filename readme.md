@@ -641,3 +641,55 @@ brief summaries are provided here.
 | `basename`  | Extract the filename from a path.                                     |
 
 ---
+## xy
+
+The xy module provides unified access to floating-point
+(*x, y*) coordinates and rectangles. Mac and windows each
+have their own point and rectangle types;
+the xy module exists to avoid requiring the user to
+either use a platform-specific point/rectangle type
+or to come up with their own.
+
+The xy module defines the following types:
+
+| type        | fields                         | summary                |
+|-------------|--------------------------------|------------------------|
+| `xy__Float` | *none*                         | a floating point value |
+| `xy__Pt`    | `x`, `y`                       | a 2-dimensional point  |
+| `xy__Rect`  | `xmin`, `ymin`, `xmax`, `ymax` | a rectangle            |
+
+Several convenience functions and macros are also provided to help
+work with these types.
+
+##### ❑ `<macro> xy__Rect xy__rect_pts(xmin, ymin, xmax, ymax)`
+
+This is an easy way to create a rectangle using
+the minimum- and maximum-value corners.
+
+##### ❑ `<macro> xy__Rect xy__rect_size(xmin, ymin, xsize, ysize)`
+
+This is an easy way to create a rectangle using
+the minimum-value corner along with the width and height.
+
+##### ❑ `xy__Float xy__width (xy__Rect);`
+
+Returns the width of the rectangle.
+
+##### ❑ `xy__Float xy__height(xy__Rect);`
+
+Returns the height of the rectangle.
+
+##### ❑ `int xy__pt_is_in_rect(xy__Pt, xy__Rect);`
+
+Returns a nonzero value if and only if the given point
+is inside the given rectangle.
+
+##### ❑ `char *xy__str_of_rect(xy__Rect);`
+
+Returns a string representing the rectangle.
+This may be useful for messages used for debugging.
+The returned string is owned by the callee and should
+not be freed. It is safe to use until the next
+call to this function.
+
+---
