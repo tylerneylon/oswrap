@@ -19,10 +19,16 @@
 int dbg__printf(const char *fmt, ...) {
   va_list args;
   va_start(args, fmt);
-  char buffer[2048];
-  int chars_written = vsnprintf(buffer, 2048, fmt, args);
+  int chars_written = dbg__vprintf(fmt, args);
   va_end(args);
 
+  return chars_written;
+}
+
+int dbg__vprintf(const char *fmt, va_list args) {
+  char buffer[2048];
+  int chars_written = vsnprintf(buffer, 2048, fmt, args);
   OutputDebugString(buffer);
+
   return chars_written;
 }

@@ -40,6 +40,26 @@ static void init_if_needed() {
   is_initialized = true;
 }
 
+static int write_or_append(const char *path, const char *contents, const char *mode) {
+  FILE *f;
+  fopen_s(&f, path, mode);
+  if (f == NULL) {
+    OutputDebugString("Error: file__write failed to open the path:");
+    OutputDebugString(path);
+    return false;
+  }
+  size_t num_bytes = strlen(contents);
+  size_t bytes_written = fwrite(contents, 1 /* elt size */, num_bytes /* num elts */, f);
+  fclose(f);
+  if (bytes_written < num_bytes) {
+    OutputDebugString("Error: file__write: fread wrote less bytes than expected at path:");
+    OutputDebugString(path);
+    return false;
+  }
+  return true;
+}
+
+
 // Public functions.
 
 char *file__get_path(const char *filename) {
@@ -52,6 +72,8 @@ char *file__get_path(const char *filename) {
 }
 
 char *file__save_dir_for_app(const char *app_name) {
+  init_if_needed();
+
   return homedir;  // The app_name is only used on the mac side.
 }
 
@@ -114,22 +136,11 @@ char *file__contents(const char *path, size_t *size) {
 }
 
 int file__write(const char *path, const char *contents) {
-  FILE *f;
-  fopen_s(&f, path, "wb");
-  if (f == NULL) {
-    OutputDebugString("Error: file__write failed to open the path:");
-    OutputDebugString(path);
-    return false;
-  }
-  size_t num_bytes = strlen(contents);
-  size_t bytes_written = fwrite(contents, 1 /* elt size */, num_bytes /* num elts */, f);
-  fclose(f);
-  if (bytes_written < num_bytes) {
-    OutputDebugString("Error: file__write: fread wrote less bytes than expected at path:");
-    OutputDebugString(path);
-    return false;
-  }
-  return true;
+  return write_or_append(path, contents, "wb");
+}
+
+int file__append(const char *path, const char *contents) {
+  return write_or_append(path, contents, "ab");
 }
 
 char file__path_sep = '\\';

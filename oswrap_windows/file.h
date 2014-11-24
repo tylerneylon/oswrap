@@ -27,7 +27,8 @@ int   file__exists(const char *path);
 char *file__contents(const char *path, size_t *size);
 
 // Returns nonzero on success.
-int   file__write(const char *path, const char *contents);
+int   file__write (const char *path, const char *contents);
+int   file__append(const char *path, const char *contents);
 
 // The path separator character; it's / on mac/linux and \ on windows.
 extern char file__path_sep;
