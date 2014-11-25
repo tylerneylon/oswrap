@@ -80,6 +80,7 @@ int file__exists(const char *path) {
 
 char *file__contents(const char *path, size_t *size) {
   FILE *f = fopen(path, "r");
+  if (f == NULL) return NULL;
   fseek(f, 0, SEEK_END);
   *size = ftell(f);
   fseek(f, 0, SEEK_SET);
