@@ -16,7 +16,20 @@ enum {
   io__return = 0x0d,
   io__shift  = 0x80,
   io__esc    = 0x81,
-  io__f1     = 0x7A
+  io__f1     = 0x7A,
+
+#ifdef     _WIN32
+
+  // Windows-specific key codes.
+  io__f2     = 0x71
+
+#else   // _WIN32
+
+  // Mac-specific key codes.
+  io__f2     = 0x78
+
+#endif  // _WIN32
+
 };
 
 // Call this with the following input to get an os-agnostic keycode:
