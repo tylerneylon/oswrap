@@ -11,7 +11,9 @@
 // Internal functions.
 
 NSString *nsstr_save_dir_for_app(NSString *app_name) {
-  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+  NSArray *paths =
+      NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
+                                          NSUserDomainMask, YES);
   return [paths[0] stringByAppendingPathComponent:app_name];
 }
 
@@ -22,10 +24,14 @@ int write_or_append(const char *path, const char *contents, const char *mode) {
     return 0;
   }
   size_t num_bytes = strlen(contents);
-  size_t bytes_written = fwrite(contents, 1 /* elt size */, num_bytes /* num elts */, f);
+  size_t bytes_written = fwrite(contents,   // data
+                                1,          // item size
+                                num_bytes,  // num items
+                                f);         // stream
   fclose(f);
   if (bytes_written < num_bytes) {
-    printf("Error: only wrote %zu bytes in %s; tried to write %zu.\n", bytes_written, __FUNCTION__, num_bytes);
+    printf("Error: only wrote %zu bytes in %s; tried to write %zu.\n",
+           bytes_written, __FUNCTION__, num_bytes);
     return 0;
   }
   return 1;
@@ -41,7 +47,8 @@ char *file__get_path(const char *filename) {
   NSString *name_wo_ext = [name stringByDeletingPathExtension];
   NSString *ext         = [name pathExtension];
 
-  NSString *nsstr_path = [[NSBundle mainBundle] pathForResource:name_wo_ext ofType:ext];
+  NSString *nsstr_path = [[NSBundle mainBundle] pathForResource:name_wo_ext
+                                                         ofType:ext];
   if       (nsstr_path == nil) return NULL;
   strncpy(path, [nsstr_path UTF8String], path_len);
 
@@ -51,7 +58,8 @@ char *file__get_path(const char *filename) {
 char *file__save_dir_for_app(const char *app_name) {
   static char save_dir[path_len];
   
-  NSString *nsstr_dir = nsstr_save_dir_for_app([NSString stringWithUTF8String:app_name]);
+  NSString *nsstr_dir = nsstr_save_dir_for_app([NSString
+      stringWithUTF8String:app_name]);
   strncpy(save_dir, [nsstr_dir UTF8String], path_len);
   
   return save_dir;
@@ -65,7 +73,8 @@ int file__make_dir_if_needed(const char *dir) {
   if ([fm fileExistsAtPath:nsstr_dir]) return true;
 
   NSError *error = nil;
-  [fm createDirectoryAtPath:nsstr_dir withIntermediateDirectories:YES attributes:nil error:&error];
+  [fm createDirectoryAtPath:nsstr_dir withIntermediateDirectories:YES
+                 attributes:nil error:&error];
 
   if (!error) return true;
 

@@ -43,7 +43,9 @@
 - (void)fadeInDirection:(NSNumber *)ns_dir {
 
   if (![NSThread isMainThread]) {
-    [self performSelectorOnMainThread:@selector(fadeInDirection:) withObject:ns_dir waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(fadeInDirection:)
+                           withObject:ns_dir
+                        waitUntilDone:NO];
     return;
   }
 
@@ -64,7 +66,8 @@
 
 audio__Obj audio__new(const char *path) {
   NSString *nsstr_path = [NSString stringWithUTF8String:path];
-  return (__bridge_retained void *)[[Sound alloc] initWithContentsOfFile:nsstr_path byReference:NO];
+  return (__bridge_retained void *)[[Sound alloc]
+      initWithContentsOfFile:nsstr_path byReference:NO];
 }
 
 void audio__delete(audio__Obj obj) {

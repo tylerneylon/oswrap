@@ -38,13 +38,14 @@ static CGContextRef CreateARGBBitmapContext (CGImageRef inImage) {
   // per component. Regardless of what the source image format is
   // (CMYK, Grayscale, and so on) it will be converted over to the format
   // specified here by CGBitmapContextCreate.
+  CGBitmapInfo bitmapInfo = (enum CGBitmapInfo)kCGImageAlphaPremultipliedLast;
   context = CGBitmapContextCreate (NULL,
                                    pixelsWide,
                                    pixelsHigh,
                                    8,      // bits per component
                                    bitmapBytesPerRow,
                                    colorSpace,
-                                   (enum CGBitmapInfo)kCGImageAlphaPremultipliedLast);
+                                   bitmapInfo);
   if (context == NULL) {
     fprintf(stderr, "Context not created!\n");
   }
@@ -69,13 +70,15 @@ draw__Bitmap img__new_bitmap(const char *path, int *w, int *h) {
   NSString *nsstr_path = [NSString stringWithUTF8String:path];
   CFURLRef urlRef = (__bridge CFURLRef)[NSURL fileURLWithPath:nsstr_path];
   CGImageSourceRef myImageSourceRef = CGImageSourceCreateWithURL(urlRef, NULL);
-  CGImageRef imageRef = CGImageSourceCreateImageAtIndex(myImageSourceRef, 0, NULL);
+  CGImageRef imageRef = CGImageSourceCreateImageAtIndex(myImageSourceRef,
+                                                        0, NULL);
 
-  // TODO In the future, I suspect I can avoid the drawing step and simply use the
-  //      data directly using the following two lines. I think the point of the drawing
-  //      code is simply to standardize the colorspace.
-  //CFDataRef dataRef = CGDataProviderCopyData(CGImageGetDataProvider(imageRef));
-  //unsigned char *data = CFDataGetBytePtr(dataRef);
+  // TODO In the future, I suspect I can avoid the drawing step and simply
+  //      use the data directly using the following two lines. I think the
+  //      point of the drawing code is simply to standardize the colorspace.
+  // CFDataRef dataRef
+  //     = CGDataProviderCopyData(CGImageGetDataProvider(imageRef));
+  // unsigned char *data = CFDataGetBytePtr(dataRef);
 
   // Create the bitmap context
   CGContextRef ctx = CreateARGBBitmapContext(imageRef);

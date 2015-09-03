@@ -50,7 +50,8 @@ void         draw__delete_bitmap  (draw__Bitmap bitmap);
 void         draw__set_bitmap     (draw__Bitmap bitmap);
 // TODO draw__get_bitmap_data would make sense returning char * on
 //      windows. Would that also make sense on mac?
-// Do not directly free the returned memory; it is owned by the draw__Bitmap object.
+// Do not directly free the returned memory; it is owned by the draw__Bitmap
+// object.
 void *       draw__get_bitmap_data(draw__Bitmap bitmap);
 
 // Fonts and text.
@@ -64,8 +65,10 @@ void         draw__set_font_color(draw__Color color);
 xy__Float    draw__string(const char *s,       // The string to draw.
                                   int x,       // The min x of the drawing box.
                                   int y,       // The min y of the drawing box.
-                                  int w,       // The width of the drawing box; ignored when left-justified.
-                                float pos);    // 0, 0.5, 1 = left, center, or right justified in the box.
+                                  int w,       // The width of the drawing box;
+                                               //   ignored when left-justified.
+                                float pos);    // 0, 0.5, 1 = left, center, or
+                                               //   right justified in the box.
 
 // Colors.
 
@@ -78,4 +81,5 @@ void         draw__rgb_stroke_color(double r, double g, double b);
 
 void         draw__fill_rect  (xy__Rect rect);
 void         draw__stroke_rect(xy__Rect rect);
-void         draw__line       (xy__Float x1, xy__Float y1, xy__Float x2, xy__Float y2);
+void         draw__line       (xy__Float x1, xy__Float y1,
+                               xy__Float x2, xy__Float y2);

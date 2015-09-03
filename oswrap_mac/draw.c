@@ -30,7 +30,8 @@ static void init_if_needed() {
   is_initialized = true;
 }
 
-#define cg_rect_from_xy(rect) ((CGRect) { { rect.xmin, rect.ymin }, { xy__width(rect), xy__height(rect) } })
+#define cg_rect_from_xy(rect) \
+  ((CGRect) { { rect.xmin, rect.ymin }, { xy__width(rect), xy__height(rect) } })
 
 
 // Bitmaps.
@@ -39,13 +40,14 @@ draw__Bitmap draw__new_bitmap(int w, int h) {
   init_if_needed();
 
   int bytes_per_row = w * 4;
+  CGBitmapInfo bitmap_info = (CGBitmapInfo)kCGImageAlphaPremultipliedLast;
   draw__Bitmap bitmap = CGBitmapContextCreate(NULL,   // data
                                               w,
                                               h,
                                               8,      // bits per component
                                               bytes_per_row,
                                               generic_rgb_colorspace,
-                                              (CGBitmapInfo)kCGImageAlphaPremultipliedLast);
+                                              bitmap_info);  // premult. alpha
 
   // Make (0, 0) correspond to the lower-left corner.
   CGContextTranslateCTM(bitmap, 0, h);
@@ -69,8 +71,12 @@ void *draw__get_bitmap_data(draw__Bitmap bitmap) {
 // Fonts and text.
 
 draw__Font draw__new_font(const char *name, int size) {
-  CFStringRef font_name = CFStringCreateWithCString(kCFAllocatorDefault, name, kCFStringEncodingUTF8);
-  draw__Font  font      = CTFontCreateWithName(font_name, size, NULL /* transform matrix */);
+  CFStringRef font_name = CFStringCreateWithCString(kCFAllocatorDefault,
+                                                    name,
+                                                    kCFStringEncodingUTF8);
+  draw__Font  font      = CTFontCreateWithName(font_name,
+                                               size,
+                                               NULL);  // transform matrix
   CFRelease  (font_name);
   return      font;
 }
@@ -88,14 +94,18 @@ void draw__set_font_color(draw__Color color) {
 }
 
 xy__Float draw__string(const char *s, int x, int y, int w, float pos) {
-  CFStringRef string = CFStringCreateWithCString(kCFAllocatorDefault, s, kCFStringEncodingUTF8);
+  CFStringRef string = CFStringCreateWithCString(kCFAllocatorDefault, s,
+                                                 kCFStringEncodingUTF8);
 
   if (font == NULL || font_color == NULL) {
-    fprintf(stderr, "Error in %s: need both font & font_color to be non-NULL.\n", __FUNCTION__);
+    fprintf(stderr,
+            "Error in %s: need both font & font_color to be non-NULL.\n",
+            __FUNCTION__);
     return x;
   }
 
-  CFStringRef keys[] = { kCTFontAttributeName, kCTForegroundColorAttributeName };
+  CFStringRef keys[] = { kCTFontAttributeName,
+                         kCTForegroundColorAttributeName };
   CFTypeRef values[] = { font, font_color };
 
   CFDictionaryRef attributes =
@@ -104,7 +114,8 @@ xy__Float draw__string(const char *s, int x, int y, int w, float pos) {
                      &kCFTypeDictionaryKeyCallBacks,
                      &kCFTypeDictionaryValueCallBacks);
 
-  CFAttributedStringRef attrString = CFAttributedStringCreate(kCFAllocatorDefault, string, attributes);
+  CFAttributedStringRef attrString =
+      CFAttributedStringCreate(kCFAllocatorDefault, string, attributes);
   CFRelease(string);
   CFRelease(attributes);
 
